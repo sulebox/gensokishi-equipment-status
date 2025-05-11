@@ -26,6 +26,17 @@
             font-size: 0.8rem; 
             vertical-align: top; 
         }
+        /* Add right border for column separation, except for the first sticky column and the last data column */
+        th:not(.sticky-col):not(:last-child),
+        td:not(:last-child) {
+            border-right: 1px solid #374151; 
+        }
+        /* Ensure sticky column also has a right border if it's not the only header */
+        th.sticky-col:not(:only-child) {
+             border-right: 1px solid #4b5563; /* Slightly more visible border for sticky col separator */
+        }
+
+
         th {
             background-color: #374151; 
             font-weight: 600;
@@ -59,15 +70,15 @@
             margin-left: 6px;
             vertical-align: middle;
         }
-        .item-image { /* Updated from item-image-placeholder */
-            width: 70px; 
-            height: 70px;
-            background-color: #4b5563; /* Fallback background */
+        .item-image { 
+            width: 105px; /* Increased image width (70px * 1.5) */
+            height: 105px; /* Increased image height (70px * 1.5) */
+            background-color: #4b5563; 
             border: 1px solid #6b7280;
             border-radius: 4px;
-            display: block; /* Changed from flex for img */
+            display: block; 
             margin: 0 auto 8px auto; 
-            object-fit: contain; /* To ensure image fits well */
+            object-fit: contain; 
         }
         .stat-label {
             color: #9ca3af; 
@@ -119,10 +130,10 @@
             position: sticky;
             left: 0;
             z-index: 10;
-            background-color: #1f2937; 
+            background-color: #1f2937; /* Match cell background for sticky column */
         }
         .sticky-col.header {
-             background-color: #374151; 
+             background-color: #374151; /* Match header background for sticky column header */
         }
 
     </style>
@@ -184,7 +195,7 @@
                 id: "reidite", 
                 name: "レイダイトブーツ", 
                 rarity: "SR", 
-                imageSrc: "sa.png", // Added image source
+                imageSrc: "sa.png",
                 stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 },
                 activeEffects: [...commonActiveEffectsForBoots]
             },
@@ -192,7 +203,7 @@
                 id: "ludech",
                 name: "ルデッヒブーツ", 
                 rarity: "SR", 
-                imageSrc: "sb.png", // Added image source
+                imageSrc: "sb.png",
                 stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 },
                 activeEffects: [...commonActiveEffectsForBoots]
             },
@@ -200,7 +211,7 @@
                 id: "shukufuku",
                 name: "祝福ガード", 
                 rarity: "SR", 
-                imageSrc: "sc.png", // Added image source
+                imageSrc: "sc.png",
                 stats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 },
                 activeEffects: [...commonActiveEffectsForBoots]
             },
@@ -208,7 +219,7 @@
                 id: "origin",
                 name: "オリジンガード", 
                 rarity: "LR",
-                imageSrc: "sd.png", // Added image source
+                imageSrc: "sd.png",
                 stats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 },
                 activeEffects: [...commonActiveEffectsForBoots]
             }
@@ -222,7 +233,7 @@
         const headerCells = document.querySelectorAll('thead th[scope="col"].text-center');
         headerCells.forEach((cell, index) => {
             if (equipmentData[index] && equipmentData[index].imageSrc) {
-                const imgElement = cell.querySelector('img.item-image'); // Select existing img tag
+                const imgElement = cell.querySelector('img.item-image'); 
                 if (imgElement) {
                     imgElement.src = equipmentData[index].imageSrc;
                     imgElement.alt = equipmentData[index].name;
