@@ -17,20 +17,19 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
             overflow-x: auto; 
-            max-height: 90vh; /* Add max-height to make table scrollable vertically */
+            max-height: 90vh; 
         }
-        thead th { /* Apply sticky to all header cells */
+        thead th { 
             position: sticky;
             background-color: #374151; 
-            z-index: 15; /* z-index for header cells */
+            z-index: 15; 
         }
-        thead tr:first-child th { /* First row of header (Category Row) */
+        thead tr:first-child th { 
             top: 0;
-            z-index: 16; /* Higher z-index for the very top row */
+            z-index: 16; 
         }
-        thead tr:nth-child(2) th { /* Second row of header (Equipment Name/Image Row) */
-            top: 41px; /* Approximate height of the first header row (font-size + padding) */
-                         /* 1.1rem (font) + 16px (padding y) = ~17.6px + 16px = 33.6px. Add a bit more for border. */
+        thead tr:nth-child(2) th { 
+            top: 41px; 
             z-index: 15;
         }
 
@@ -46,18 +45,18 @@
         td:not(:last-child) {
             border-right: 1px solid #374151; 
         }
-        th.sticky-col { /* For the first "ステータス" column */
+        th.sticky-col { 
              position: sticky;
              left: 0;
-             z-index: 10; /* Lower z-index for horizontal sticky */
-             background-color: #1f2937; /* Default cell bg for body */
+             z-index: 10; 
+             background-color: #1f2937; 
         }
-        th.sticky-col.header { /* For the TH in the header row that is sticky */
-             background-color: #374151; /* Header bg for sticky header cell */
-             z-index: 17; /* Highest z-index for the top-left sticky cell */
+        th.sticky-col.header { 
+             background-color: #374151; 
+             z-index: 17; 
         }
-         thead tr:nth-child(2) th.sticky-col.header { /* Specifically for "ステータス" in the second header row */
-            z-index: 18; /* Must be above other second row headers and first column body */
+         thead tr:nth-child(2) th.sticky-col.header { 
+            z-index: 18; 
         }
 
 
@@ -103,7 +102,7 @@
             margin: 0 auto 8px auto; 
             object-fit: contain; 
         }
-        .stat-label { /* This is for tbody th cells */
+        .stat-label { 
             color: #9ca3af; 
             font-weight: 500;
         }
@@ -150,9 +149,9 @@
         .category-header {
             background-color: #064e3b; 
             color: #a7f3d0; 
-            font-size: 1.1rem; /* Approx 17.6px */
+            font-size: 1.1rem; 
             text-align: center !important; 
-            padding-top: 8px; /* Explicit padding */
+            padding-top: 8px; 
             padding-bottom: 8px;
         }
         .category-header.sticky-col { 
@@ -161,9 +160,7 @@
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-100">シフ系装備 ステータス比較</h1>
-    </div>
+    <div class="mb-4"> <h1 class="text-2xl font-bold text-gray-100">シフ系装備 ステータス</h1> </div>
 
     <div class="table-container">
         <table class="min-w-full">
@@ -273,7 +270,7 @@
             // Right Hand (7 items)
             { id: "greeder-style", name: "グリーダースタイル", rarity: "SR", imageSrc: "sda.png", stats: { HP: 220, MP: 165, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 204, ガード: 0, 腕力: 180, 体力: 0, 速さ: 320, 知力: 0, 器用: 340, 精神: 0, 総合: 1849 }, activeEffects: [...activeEffectsForRightHand]},
             { id: "another-style-dagger", name: "アナザースタイルダガー", rarity: "SR", imageSrc: "sdb.png", stats: { HP: 144, MP: 220, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 184, ガード: 0, 腕力: 160, 体力: 0, 速さ: 130, 知力: 0, 器用: 180, 精神: 340, 総合: 1798 }, activeEffects: [...activeEffectsForRightHand]},
-            { id: "murder-trap", name: "マーダートラップ", rarity: "LR", imageSrc: "sdc.png", stats: { HP: 330, MP: 247, 攻撃力: 550, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 239, ガード: 0, 腕力: 270, 体力: 0, 速さ: 410, 知力: 0, 器用: 440, 精神: 0, 総合: 2486 }, activeEffects: [...activeEffectsForRightHand]}, // Rarity updated
+            { id: "murder-trap", name: "マーダートラップ", rarity: "LR", imageSrc: "sdc.png", stats: { HP: 330, MP: 247, 攻撃力: 550, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 239, ガード: 0, 腕力: 270, 体力: 0, 速さ: 410, 知力: 0, 器用: 440, 精神: 0, 総合: 2486 }, activeEffects: [...activeEffectsForRightHand]},
             { id: "uraus-trenge", name: "ウラウストレンジ", rarity: "SR", imageSrc: "sdd.png", stats: { HP: 0, MP: 171, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 370, 体力: 0, 速さ: 340, 知力: 0, 器用: 260, 精神: 0, 総合: 1573 }, activeEffects: [...activeEffectsForRightHand]},
             { id: "another-style-taro", name: "アナザースタイルタロー", rarity: "SR", imageSrc: "sde.png", stats: { HP: 0, MP: 220, 攻撃力: 520, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 450, 体力: 0, 速さ: 0, 知力: 240, 器用: 180, 精神: 0, 総合: 1622 }, activeEffects: [...activeEffectsForRightHand]},
             { id: "glatnics-ha", name: "グラトニクス・破", rarity: "SR", imageSrc: "sdf.png", stats: { HP: 293, MP: 183, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 380, 体力: 170, 速さ: 130, 知力: 0, 器用: 0, 精神: 0, 総合: 1594 }, activeEffects: [...activeEffectsForRightHand]},
@@ -282,8 +279,8 @@
             { id: "ludech-grim", name: "ルデッヒグリム", rarity: "SR", imageSrc: "sea.png", stats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
             { id: "reidite-helm", name: "レイダイトヘルム", rarity: "SR", imageSrc: "seb.png", stats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 110, 体力: 110, 速さ: 70, 知力: 0, 器用: 110, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
             { id: "qey-hat", name: "クェイートハット", rarity: "SR", imageSrc: "sec.png", stats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 976 }, activeEffects: [...activeEffectsForHelm]},
-            { id: "defy-cap", name: "ディファイキャップ", rarity: "LR", imageSrc: "sed.png", stats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm]}, // Rarity updated
-            { id: "starlight-cap", name: "スターライトキャップ", rarity: "LR", imageSrc: "see.png", stats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm]} // Rarity is already LR
+            { id: "defy-cap", name: "ディファイキャップ", rarity: "LR", imageSrc: "sed.png", stats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm]},
+            { id: "starlight-cap", name: "スターライトキャップ", rarity: "LR", imageSrc: "see.png", stats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm]}
         ];
 
         const statLabels = ["HP", "MP", "攻撃力", "防御力", "魔法攻撃力", "攻撃速度", "ガード", "腕力", "体力", "速さ", "知力", "器用", "精神", "総合"];
