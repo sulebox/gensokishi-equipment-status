@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>装備ステータス表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #111827; 
+            color: #d1d5db; 
+        }
+        .table-container {
+            background-color: #1f2937; 
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            overflow-x: auto; 
+        }
+        th, td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #374151; 
+            white-space: nowrap; 
+            font-size: 0.8rem; 
+            vertical-align: top; 
+        }
+        th {
+            background-color: #374151; 
+            font-weight: 600;
+            color: #f3f4f6; 
+        }
+        .equipment-name {
+            font-weight: 700;
+            color: #f9fafb; 
+            font-size: 0.9rem; 
+            margin-bottom: 4px;
+        }
+        .rarity-sr {
+            display: inline-block;
+            background-color: #ef4444; 
+            color: white;
+            font-size: 0.65rem; 
+            font-weight: bold;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .rarity-lr { 
+            display: inline-block;
+            background-color: #8b5cf6; 
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .item-image { /* Updated from item-image-placeholder */
+            width: 70px; 
+            height: 70px;
+            background-color: #4b5563; /* Fallback background */
+            border: 1px solid #6b7280;
+            border-radius: 4px;
+            display: block; /* Changed from flex for img */
+            margin: 0 auto 8px auto; 
+            object-fit: contain; /* To ensure image fits well */
+        }
+        .stat-label {
+            color: #9ca3af; 
+            font-weight: 500;
+        }
+        .stat-value {
+            color: #e5e7eb; 
+            font-weight: 500;
+        }
+        .stat-value.zero {
+            color: #6b7280; 
+        }
+        .total-stat {
+            font-weight: 700;
+            color: #34d399; 
+        }
+        .additional-effects-header {
+            background-color: #0c4a6e; 
+            color: #bae6fd; 
+            font-weight: 600;
+            font-size: 0.85rem; 
+        }
+        
+        .effects-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2px 6px; 
+            padding-top: 4px;
+        }
+        .effects-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1px; 
+        }
+        .effect-name {
+            font-size: 0.7rem; 
+            padding: 1px 0;
+            line-height: 1.1; 
+            letter-spacing: -0.5px; 
+        }
+        .effect-name.active {
+            color: #e5e7eb; 
+        }
+        .effect-name.inactive {
+            color: #4b5563; 
+        }
+
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background-color: #1f2937; 
+        }
+        .sticky-col.header {
+             background-color: #374151; 
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-100">シフ系装備 - ブーツ ステータス比較</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="min-w-full">
+            <thead class="header">
+                <tr>
+                    <th scope="col" class="sticky-col header">ステータス</th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">レイダイトブーツ <span class="rarity-sr">SR</span></div>
+                        <img src="sa.png" alt="レイダイトブーツ" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">ルデッヒブーツ <span class="rarity-sr">SR</span></div>
+                        <img src="sb.png" alt="ルデッヒブーツ" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">祝福ガード <span class="rarity-sr">SR</span></div>
+                        <img src="sc.png" alt="祝福ガード" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">オリジンガード <span class="rarity-lr">LR</span></div>
+                        <img src="sd.png" alt="オリジンガード" class="item-image">
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="equipmentTableBody">
+                <tr>
+                    <th scope="row" class="additional-effects-header sticky-col header">抽選-追加効果</th>
+                    <td id="effects-reidite" class="effects-cell"></td>
+                    <td id="effects-ludech" class="effects-cell"></td>
+                    <td id="effects-shukufuku" class="effects-cell"></td>
+                    <td id="effects-origin" class="effects-cell"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const allPossibleEffects = [ 
+            "攻撃", "防御", "攻速", "ｶｰﾄﾞ値", "腕力", "器用", "知力", "精神", "体力", "速さ", "最HP",
+            "最MP", "物ｸﾘ値", "魔ｸﾘ値", "物ｸﾘ倍", "魔ｸﾘ倍", "防効", "詠速", "ｶｰﾄﾞ効", "物耐", "魔耐",
+            "火耐", "水耐", "風耐", "土耐", "光耐", "闇耐", "ｸﾘ耐", "催耐", "麻耐",
+            "毒耐", "沈耐", "泥率"
+        ];
+
+        const commonActiveEffectsForBoots = [
+            "防御", "ｶｰﾄﾞ値", "腕力", "体力", "速さ", "最MP", "防効", "ｶｰﾄﾞ効", "火耐", "水耐", "風耐", "土耐", "ｸﾘ耐", "催耐", "麻耐", "毒耐", "沈耐"
+        ];
+
+        const equipmentData = [
+            { 
+                id: "reidite", 
+                name: "レイダイトブーツ", 
+                rarity: "SR", 
+                imageSrc: "sa.png", // Added image source
+                stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 },
+                activeEffects: [...commonActiveEffectsForBoots]
+            },
+            { 
+                id: "ludech",
+                name: "ルデッヒブーツ", 
+                rarity: "SR", 
+                imageSrc: "sb.png", // Added image source
+                stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 },
+                activeEffects: [...commonActiveEffectsForBoots]
+            },
+            { 
+                id: "shukufuku",
+                name: "祝福ガード", 
+                rarity: "SR", 
+                imageSrc: "sc.png", // Added image source
+                stats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 },
+                activeEffects: [...commonActiveEffectsForBoots]
+            },
+            { 
+                id: "origin",
+                name: "オリジンガード", 
+                rarity: "LR",
+                imageSrc: "sd.png", // Added image source
+                stats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 },
+                activeEffects: [...commonActiveEffectsForBoots]
+            }
+        ];
+
+        const statLabels = ["HP", "MP", "攻撃力", "防御力", "魔法攻撃力", "攻撃速度", "ガード", "腕力", "体力", "速さ", "知力", "器用", "精神", "総合"];
+        const tableBody = document.getElementById('equipmentTableBody');
+        const additionalEffectsHeaderRow = tableBody.querySelector('tr:has(th.additional-effects-header)');
+
+        // Update table headers with actual images
+        const headerCells = document.querySelectorAll('thead th[scope="col"].text-center');
+        headerCells.forEach((cell, index) => {
+            if (equipmentData[index] && equipmentData[index].imageSrc) {
+                const imgElement = cell.querySelector('img.item-image'); // Select existing img tag
+                if (imgElement) {
+                    imgElement.src = equipmentData[index].imageSrc;
+                    imgElement.alt = equipmentData[index].name;
+                }
+            }
+        });
+
+
+        // Generate rows for basic stats
+        statLabels.forEach(label => {
+            const row = document.createElement('tr');
+            const th = document.createElement('th');
+            th.scope = "row";
+            th.className = "stat-label sticky-col";
+            th.textContent = label;
+            row.appendChild(th);
+
+            equipmentData.forEach(eq => {
+                const td = document.createElement('td');
+                const value = eq.stats[label];
+                td.className = `stat-value text-center ${value === 0 && label !== '総合' ? 'zero' : ''} ${label === '総合' ? 'total-stat' : ''}`;
+                td.textContent = value;
+                row.appendChild(td);
+            });
+            tableBody.insertBefore(row, additionalEffectsHeaderRow); 
+        });
+
+        // Generate additional effects display for each equipment
+        equipmentData.forEach(eq => {
+            const cellId = `effects-${eq.id}`;
+            const effectsCell = document.getElementById(cellId);
+            if (!effectsCell) {
+                console.error(`Cell with ID ${cellId} not found.`);
+                return;
+            }
+
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'effects-grid-container';
+
+            const columns = [[], [], []]; // For 3 columns
+            allPossibleEffects.forEach((effectName, index) => {
+                columns[index % 3].push(effectName);
+            });
+
+            columns.forEach(columnEffects => {
+                const columnDiv = document.createElement('div');
+                columnDiv.className = 'effects-column';
+                columnEffects.forEach(effectName => {
+                    const effectDiv = document.createElement('div');
+                    effectDiv.textContent = effectName;
+                    const isActive = eq.activeEffects.includes(effectName);
+                    effectDiv.className = `effect-name ${isActive ? 'active' : 'inactive'}`;
+                    columnDiv.appendChild(effectDiv);
+                });
+                gridContainer.appendChild(columnDiv);
+            });
+            effectsCell.appendChild(gridContainer);
+        });
+
+    </script>
+</body>
+</html>
