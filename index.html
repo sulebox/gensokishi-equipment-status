@@ -26,14 +26,20 @@
             font-size: 0.8rem; 
             vertical-align: top; 
         }
-        /* Add right border for column separation, except for the first sticky column and the last data column */
+        /* Default right border for data cells and non-sticky headers */
         th:not(.sticky-col):not(:last-child),
         td:not(:last-child) {
             border-right: 1px solid #374151; 
         }
-        /* Ensure sticky column also has a right border if it's not the only header */
-        th.sticky-col:not(:only-child) {
-             border-right: 1px solid #4b5563; /* Slightly more visible border for sticky col separator */
+
+        /* Thicker right border for the sticky column */
+        th.sticky-col { /* Applied to the first column (ステータス) */
+             border-right: 2px solid #4b5563 !important; 
+        }
+
+        /* Thicker right border for category headers to separate categories */
+        .category-separator {
+            border-right: 2px solid #4b5563 !important; /* Thicker line for category separation */
         }
 
 
@@ -48,9 +54,9 @@
             font-size: 0.9rem; 
             margin-bottom: 4px;
         }
-        .rarity-sr {
+        .rarity-sr { /* Updated SR color to purple */
             display: inline-block;
-            background-color: #ef4444; 
+            background-color: #9333ea; /* Purple-600 */
             color: white;
             font-size: 0.65rem; 
             font-weight: bold;
@@ -59,10 +65,10 @@
             margin-left: 6px;
             vertical-align: middle;
         }
-        .rarity-lr { 
+        .rarity-lr {  /* Updated LR color to yellow */
             display: inline-block;
-            background-color: #8b5cf6; 
-            color: white;
+            background-color: #f59e0b; /* Amber-500 */
+            color: #422006; /* Dark brown text for yellow bg */
             font-size: 0.65rem;
             font-weight: bold;
             padding: 1px 5px;
@@ -71,8 +77,8 @@
             vertical-align: middle;
         }
         .item-image { 
-            width: 105px; /* Increased image width (70px * 1.5) */
-            height: 105px; /* Increased image height (70px * 1.5) */
+            width: 105px; 
+            height: 105px; 
             background-color: #4b5563; 
             border: 1px solid #6b7280;
             border-radius: 4px;
@@ -130,39 +136,80 @@
             position: sticky;
             left: 0;
             z-index: 10;
-            background-color: #1f2937; /* Match cell background for sticky column */
+            background-color: #1f2937; 
         }
-        .sticky-col.header {
-             background-color: #374151; /* Match header background for sticky column header */
+        .sticky-col.header { 
+             background-color: #374151; 
         }
+        .category-header {
+            background-color: #064e3b; 
+            color: #a7f3d0; 
+            font-size: 1.1rem;
+            text-align: center !important; 
+        }
+        .category-header.sticky-col { 
+             background-color: #374151; 
+        }
+
 
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-100">シフ系装備 - ブーツ ステータス比較</h1>
+        <h1 class="text-3xl font-bold text-gray-100">シフ系装備 ステータス比較</h1>
     </div>
 
     <div class="table-container">
         <table class="min-w-full">
             <thead class="header">
                 <tr>
+                    <th class="sticky-col header category-header">装備種別</th>
+                    <th colspan="4" class="category-header category-separator">ブーツ</th>
+                    <th colspan="5" class="category-header category-separator">アーマー</th>
+                    <th colspan="2" class="category-header">左手</th>
+                </tr>
+                <tr>
                     <th scope="col" class="sticky-col header">ステータス</th>
                     <th scope="col" class="text-center">
                         <div class="equipment-name">レイダイトブーツ <span class="rarity-sr">SR</span></div>
-                        <img src="sa.png" alt="レイダイトブーツ" class="item-image">
+                        <img src="saa.png" alt="レイダイトブーツ" class="item-image">
                     </th>
                     <th scope="col" class="text-center">
                         <div class="equipment-name">ルデッヒブーツ <span class="rarity-sr">SR</span></div>
-                        <img src="sb.png" alt="ルデッヒブーツ" class="item-image">
+                        <img src="sab.png" alt="ルデッヒブーツ" class="item-image">
                     </th>
                     <th scope="col" class="text-center">
                         <div class="equipment-name">祝福ガード <span class="rarity-sr">SR</span></div>
-                        <img src="sc.png" alt="祝福ガード" class="item-image">
+                        <img src="sac.png" alt="祝福ガード" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center category-separator"> <div class="equipment-name">オリジンガード <span class="rarity-lr">LR</span></div>
+                        <img src="sad.png" alt="オリジンガード" class="item-image">
                     </th>
                     <th scope="col" class="text-center">
-                        <div class="equipment-name">オリジンガード <span class="rarity-lr">LR</span></div>
-                        <img src="sd.png" alt="オリジンガード" class="item-image">
+                        <div class="equipment-name">ルデッヒブレスト <span class="rarity-sr">SR</span></div>
+                        <img src="sba.png" alt="ルデッヒブレスト" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">レイダイトプレート <span class="rarity-sr">SR</span></div>
+                        <img src="sbb.png" alt="レイダイトプレート" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">祝福のワーククロース <span class="rarity-sr">SR</span></div>
+                        <img src="sbc.png" alt="祝福のワーククロース" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">祝福のクロース <span class="rarity-sr">SR</span></div>
+                        <img src="sbd.png" alt="祝福のクロース" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center category-separator"> <div class="equipment-name">オリジンクロース <span class="rarity-lr">LR</span></div>
+                        <img src="sbe.png" alt="オリジンクロース" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center">
+                        <div class="equipment-name">グリードロック <span class="rarity-sr">SR</span></div>
+                        <img src="sca.png" alt="グリードロック" class="item-image">
+                    </th>
+                    <th scope="col" class="text-center"> <div class="equipment-name">アナザースタイルサイ <span class="rarity-sr">SR</span></div>
+                        <img src="scb.png" alt="アナザースタイルサイ" class="item-image">
                     </th>
                 </tr>
             </thead>
@@ -172,7 +219,14 @@
                     <td id="effects-reidite" class="effects-cell"></td>
                     <td id="effects-ludech" class="effects-cell"></td>
                     <td id="effects-shukufuku" class="effects-cell"></td>
-                    <td id="effects-origin" class="effects-cell"></td>
+                    <td id="effects-origin" class="effects-cell category-separator"></td>
+                    <td id="effects-ludech-brest" class="effects-cell"></td>
+                    <td id="effects-reidite-plate" class="effects-cell"></td>
+                    <td id="effects-shukufuku-workcloth" class="effects-cell"></td>
+                    <td id="effects-shukufuku-cloth" class="effects-cell"></td>
+                    <td id="effects-origin-cloth" class="effects-cell category-separator"></td>
+                    <td id="effects-greed-rock" class="effects-cell"></td>
+                    <td id="effects-another-style-sai" class="effects-cell"></td>
                 </tr>
             </tbody>
         </table>
@@ -186,57 +240,49 @@
             "毒耐", "沈耐", "泥率"
         ];
 
-        const commonActiveEffectsForBoots = [
+        const commonActiveEffectsForBootsAndArmor = [ // Renamed for clarity
             "防御", "ｶｰﾄﾞ値", "腕力", "体力", "速さ", "最MP", "防効", "ｶｰﾄﾞ効", "火耐", "水耐", "風耐", "土耐", "ｸﾘ耐", "催耐", "麻耐", "毒耐", "沈耐"
         ];
 
+        const activeEffectsForLeftHand = [ // New list for Left Hand equipment
+            "防御", "ｶｰﾄﾞ値", "腕力", "器用", "知力", "精神", "速さ", "最HP", "物ｸﾘ値", "防効", "ｶｰﾄﾞ効", "火耐", "水耐", "風耐", "土耐"
+        ];
+
         const equipmentData = [
-            { 
-                id: "reidite", 
-                name: "レイダイトブーツ", 
-                rarity: "SR", 
-                imageSrc: "sa.png",
-                stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 },
-                activeEffects: [...commonActiveEffectsForBoots]
-            },
-            { 
-                id: "ludech",
-                name: "ルデッヒブーツ", 
-                rarity: "SR", 
-                imageSrc: "sb.png",
-                stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 },
-                activeEffects: [...commonActiveEffectsForBoots]
-            },
-            { 
-                id: "shukufuku",
-                name: "祝福ガード", 
-                rarity: "SR", 
-                imageSrc: "sc.png",
-                stats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 },
-                activeEffects: [...commonActiveEffectsForBoots]
-            },
-            { 
-                id: "origin",
-                name: "オリジンガード", 
-                rarity: "LR",
-                imageSrc: "sd.png",
-                stats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 },
-                activeEffects: [...commonActiveEffectsForBoots]
-            }
+            // Boots
+            { id: "reidite", name: "レイダイトブーツ", rarity: "SR", imageSrc: "saa.png", stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "ludech", name: "ルデッヒブーツ", rarity: "SR", imageSrc: "sab.png", stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "shukufuku", name: "祝福ガード", rarity: "SR", imageSrc: "sac.png", stats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "origin", name: "オリジンガード", rarity: "LR", imageSrc: "sad.png", stats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            // Armors
+            { id: "ludech-brest", name: "ルデッヒブレスト", rarity: "SR", imageSrc: "sba.png", stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 170, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 670 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "reidite-plate", name: "レイダイトプレート", rarity: "SR", imageSrc: "sbb.png", stats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 120, 知力: 0, 器用: 120, 精神: 0, 総合: 640 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "shukufuku-workcloth", name: "祝福のワーククロース", rarity: "SR", imageSrc: "sbc.png", stats: { HP: 242, MP: 161, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 240, 体力: 0, 速さ: 160, 知力: 0, 器用: 120, 精神: 0, 総合: 1143 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "shukufuku-cloth", name: "祝福のクロース", rarity: "SR", imageSrc: "sbd.png", stats: { HP: 202, MP: 108, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 260, 体力: 0, 速さ: 130, 知力: 0, 器用: 260, 精神: 0, 総合: 1180 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { id: "origin-cloth", name: "オリジンクロース", rarity: "LR", imageSrc: "sbe.png", stats: { HP: 380, MP: 321, 攻撃力: 0, 防御力: 300, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 500, 体力: 0, 速さ: 0, 知力: 0, 器用: 480, 精神: 0, 総合: 1981 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            // Left Hand
+            { id: "greed-rock", name: "グリードロック", rarity: "SR", imageSrc: "sca.png", stats: { HP: 103, MP: 173, 攻撃力: 290, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 9, ガード: 15, 腕力: 220, 体力: 150, 速さ: 0, 知力: 140, 器用: 0, 精神: 0, 総合: 1250 }, activeEffects: [...activeEffectsForLeftHand]}, // Use new list
+            { id: "another-style-sai", name: "アナザースタイルサイ", rarity: "SR", imageSrc: "scb.png", stats: { HP: 44, MP: 266, 攻撃力: 420, 防御力: 80, 魔法攻撃力: 0, 攻撃速度: 10, ガード: 3, 腕力: 170, 体力: 0, 速さ: 0, 知力: 120, 器用: 80, 精神: 160, 総合: 1353 }, activeEffects: [...activeEffectsForLeftHand]} // Use new list
         ];
 
         const statLabels = ["HP", "MP", "攻撃力", "防御力", "魔法攻撃力", "攻撃速度", "ガード", "腕力", "体力", "速さ", "知力", "器用", "精神", "総合"];
         const tableBody = document.getElementById('equipmentTableBody');
         const additionalEffectsHeaderRow = tableBody.querySelector('tr:has(th.additional-effects-header)');
 
-        // Update table headers with actual images
-        const headerCells = document.querySelectorAll('thead th[scope="col"].text-center');
+        // Update table headers with actual images and names
+        const headerCells = document.querySelectorAll('thead tr:nth-child(2) th[scope="col"].text-center'); 
         headerCells.forEach((cell, index) => {
-            if (equipmentData[index] && equipmentData[index].imageSrc) {
+            if (equipmentData[index]) {
+                const eq = equipmentData[index];
+                const nameDiv = cell.querySelector('.equipment-name');
                 const imgElement = cell.querySelector('img.item-image'); 
-                if (imgElement) {
-                    imgElement.src = equipmentData[index].imageSrc;
-                    imgElement.alt = equipmentData[index].name;
+                
+                if (nameDiv) {
+                    nameDiv.innerHTML = `${eq.name} <span class="rarity-${eq.rarity.toLowerCase()}">${eq.rarity}</span>`;
+                }
+                if (imgElement && eq.imageSrc) {
+                    imgElement.src = eq.imageSrc;
+                    imgElement.alt = eq.name;
                 }
             }
         });
@@ -251,10 +297,13 @@
             th.textContent = label;
             row.appendChild(th);
 
-            equipmentData.forEach(eq => {
+            equipmentData.forEach((eq, eqIndex) => {
                 const td = document.createElement('td');
-                const value = eq.stats[label];
+                const value = eq.stats[label] !== undefined ? eq.stats[label] : '-';
                 td.className = `stat-value text-center ${value === 0 && label !== '総合' ? 'zero' : ''} ${label === '総合' ? 'total-stat' : ''}`;
+                if ((eqIndex === 3 && equipmentData.length > 4) || (eqIndex === 8 && equipmentData.length > 9)) { 
+                    td.classList.add('category-separator');
+                }
                 td.textContent = value;
                 row.appendChild(td);
             });
@@ -262,18 +311,22 @@
         });
 
         // Generate additional effects display for each equipment
-        equipmentData.forEach(eq => {
+        equipmentData.forEach((eq, eqIndex) => {
             const cellId = `effects-${eq.id}`;
             const effectsCell = document.getElementById(cellId);
             if (!effectsCell) {
                 console.error(`Cell with ID ${cellId} not found.`);
                 return;
             }
+            if ((eqIndex === 3 && equipmentData.length > 4) || (eqIndex === 8 && equipmentData.length > 9)) {
+                effectsCell.classList.add('category-separator');
+            }
+
 
             const gridContainer = document.createElement('div');
             gridContainer.className = 'effects-grid-container';
 
-            const columns = [[], [], []]; // For 3 columns
+            const columns = [[], [], []]; 
             allPossibleEffects.forEach((effectName, index) => {
                 columns[index % 3].push(effectName);
             });
