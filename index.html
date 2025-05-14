@@ -19,6 +19,11 @@
             overflow-x: auto; 
             max-height: 90vh; 
         }
+        .status-table {
+            table-layout: fixed; 
+            width: auto; 
+            min-width: 100%; 
+        }
         thead th {
             position: sticky;
             background-color: #374151; 
@@ -32,11 +37,13 @@
             top: 41px; 
             z-index: 21; 
         }
-        th.sticky-col {
+        th.sticky-col { 
              position: sticky;
              left: 0;
              background-color: #1f2937; 
              z-index: 10; 
+             width: auto; 
+             min-width: 100px; 
         }
         th.sticky-col.header { 
              background-color: #374151; 
@@ -49,22 +56,32 @@
             padding: 8px 10px;
             text-align: left;
             border-bottom: 1px solid #374151; 
-            white-space: nowrap; 
             font-size: 0.8rem; 
             vertical-align: top; 
         }
         th:not(.sticky-col):not(:last-child),
-        td:not(:last-child) {
+        td:not(.equipment-column):not(:last-child),
+        .equipment-column:not(:last-child) {
             border-right: 1px solid #374151; 
         }
+
         .category-separator {
             border-right: 2px solid #4b5563 !important;
         }
+        
+        .equipment-column { 
+            width: 176px; /* Changed from 220px to 176px (80%) */
+            min-width: 176px; /* Changed from 220px to 176px (80%) */
+            white-space: nowrap; 
+        }
+
         .equipment-name {
             font-weight: 700;
             color: #f9fafb; 
             font-size: 0.9rem; 
             margin-bottom: 4px;
+            white-space: normal; 
+            word-break: keep-all; 
         }
         .rarity-sr {
             display: inline-block;
@@ -179,7 +196,7 @@
     <div class="mb-4"> <h1 class="text-2xl font-bold text-gray-100">シフ系装備 ステータス</h1> </div>
 
     <div class="table-container">
-        <table class="min-w-full">
+        <table class="min-w-full status-table">
             <thead class="header">
                 <tr>
                     <th class="sticky-col header category-header">装備種別</th>
@@ -224,38 +241,37 @@
 
         let equipmentData = [ 
             // Boots (6 items now)
-            { type: "boots", id: "reidite", name: "レイダイトブーツ", rarity: "SR", imageSrc: "saa.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "boots", id: "ludech", name: "ルデッヒブーツ", rarity: "SR", imageSrc: "sab.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "boots", id: "shukufuku", name: "祝福ガード", rarity: "SR", imageSrc: "sac.png", baseStats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "boots", id: "origin", name: "オリジンガード", rarity: "LR", imageSrc: "sad.png", baseStats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "boots", id: "shukufuku-workpants", name: "祝福ワークパンツ", rarity: "SR", imageSrc: "sae.png", baseStats: { HP: 164, MP: 242, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 140, 体力: 0, 速さ: 0, 知力: 220, 器用: 140, 精神: 0, 総合: 1116 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "boots", id: "origin-workpants", name: "オリジンワークパンツ", rarity: "LR", imageSrc: "saf.png", baseStats: { HP: 294, MP: 421, 攻撃力: 0, 防御力: 260, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 490, 体力: 0, 速さ: 0, 知力: 360, 器用: 270, 精神: 0, 総合: 2095 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "reidite", name: "ﾚｲﾀﾞｲﾄﾌﾞｰﾂ", rarity: "SR", imageSrc: "saa.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "ludech", name: "ﾙﾃﾞｯﾋﾌﾞｰﾂ", rarity: "SR", imageSrc: "sab.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "shukufuku", name: "祝福ｶﾞｰﾄﾞ", rarity: "SR", imageSrc: "sac.png", baseStats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "origin", name: "ｵﾘｼﾞﾝｶﾞｰﾄﾞ", rarity: "LR", imageSrc: "sad.png", baseStats: { HP: 380, MP: 331, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 480, 体力: 0, 速さ: 230, 知力: 0, 器用: 230, 精神: 0, 総合: 1921 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "shukufuku-workpants", name: "祝福ﾜｰｸﾊﾟﾝﾂ", rarity: "SR", imageSrc: "sae.png", baseStats: { HP: 164, MP: 242, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 140, 体力: 0, 速さ: 0, 知力: 220, 器用: 140, 精神: 0, 総合: 1116 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "boots", id: "origin-workpants", name: "ｵﾘｼﾞﾝﾜｰｸﾊﾟﾝﾂ", rarity: "LR", imageSrc: "saf.png", baseStats: { HP: 294, MP: 421, 攻撃力: 0, 防御力: 260, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 490, 体力: 0, 速さ: 0, 知力: 360, 器用: 270, 精神: 0, 総合: 2095 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
             // Armors (5 items) 
-            { type: "armor", id: "ludech-brest", name: "ルデッヒブレスト", rarity: "SR", imageSrc: "sba.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 170, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 670 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "armor", id: "reidite-plate", name: "レイダイトプレート", rarity: "SR", imageSrc: "sbb.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 120, 知力: 0, 器用: 120, 精神: 0, 総合: 640 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "armor", id: "shukufuku-cloth", name: "祝福のクロース", rarity: "SR", imageSrc: "sbd.png", baseStats: { HP: 202, MP: 108, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 260, 体力: 0, 速さ: 130, 知力: 0, 器用: 260, 精神: 0, 総合: 1180 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "armor", id: "origin-cloth", name: "オリジンクロース", rarity: "LR", imageSrc: "sbe.png", baseStats: { HP: 380, MP: 321, 攻撃力: 0, 防御力: 300, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 500, 体力: 0, 速さ: 0, 知力: 0, 器用: 480, 精神: 0, 総合: 1981 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
-            { type: "armor", id: "shukufuku-workcloth", name: "祝福のワーククロース", rarity: "SR", imageSrc: "sbc.png", baseStats: { HP: 242, MP: 161, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 240, 体力: 0, 速さ: 160, 知力: 0, 器用: 120, 精神: 0, 総合: 1143 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "armor", id: "ludech-brest", name: "ﾙﾃﾞｯﾋﾌﾞﾚｽﾄ", rarity: "SR", imageSrc: "sba.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 170, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 670 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "armor", id: "reidite-plate", name: "ﾚｲﾀﾞｲﾄﾌﾟﾚｰﾄ", rarity: "SR", imageSrc: "sbb.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 120, 知力: 0, 器用: 120, 精神: 0, 総合: 640 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "armor", id: "shukufuku-cloth", name: "祝福のｸﾛｰｽ", rarity: "SR", imageSrc: "sbd.png", baseStats: { HP: 202, MP: 108, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 260, 体力: 0, 速さ: 130, 知力: 0, 器用: 260, 精神: 0, 総合: 1180 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "armor", id: "origin-cloth", name: "ｵﾘｼﾞﾝｸﾛｰｽ", rarity: "LR", imageSrc: "sbe.png", baseStats: { HP: 380, MP: 321, 攻撃力: 0, 防御力: 300, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 500, 体力: 0, 速さ: 0, 知力: 0, 器用: 480, 精神: 0, 総合: 1981 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
+            { type: "armor", id: "shukufuku-workcloth", name: "祝福のﾜｰｸｸﾛｰｽ", rarity: "SR", imageSrc: "sbc.png", baseStats: { HP: 242, MP: 161, 攻撃力: 0, 防御力: 220, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 240, 体力: 0, 速さ: 160, 知力: 0, 器用: 120, 精神: 0, 総合: 1143 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
             // Left Hand (2 items)
-            { type: "lefthand", id: "greed-rock", name: "グリードロック", rarity: "SR", imageSrc: "sca.png", baseStats: { HP: 103, MP: 173, 攻撃力: 290, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 9, ガード: 15, 腕力: 220, 体力: 150, 速さ: 0, 知力: 140, 器用: 0, 精神: 0, 総合: 1250 }, activeEffects: [...activeEffectsForLeftHand]},
-            { type: "lefthand", id: "another-style-sai", name: "アナザースタイルサイ", rarity: "SR", imageSrc: "scb.png", baseStats: { HP: 44, MP: 266, 攻撃力: 420, 防御力: 80, 魔法攻撃力: 0, 攻撃速度: 10, ガード: 3, 腕力: 170, 体力: 0, 速さ: 0, 知力: 120, 器用: 80, 精神: 160, 総合: 1353 }, activeEffects: [...activeEffectsForLeftHand]},
+            { type: "lefthand", id: "greed-rock", name: "ｸﾞﾘｰﾄﾞﾛｯｸ", rarity: "SR", imageSrc: "sca.png", baseStats: { HP: 103, MP: 173, 攻撃力: 290, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 9, ガード: 15, 腕力: 220, 体力: 150, 速さ: 0, 知力: 140, 器用: 0, 精神: 0, 総合: 1250 }, activeEffects: [...activeEffectsForLeftHand]},
+            { type: "lefthand", id: "another-style-sai", name: "ｱﾅｻﾞｰｽﾀｲﾙｻｲ", rarity: "SR", imageSrc: "scb.png", baseStats: { HP: 44, MP: 266, 攻撃力: 420, 防御力: 80, 魔法攻撃力: 0, 攻撃速度: 10, ガード: 3, 腕力: 170, 体力: 0, 速さ: 0, 知力: 120, 器用: 80, 精神: 160, 総合: 1353 }, activeEffects: [...activeEffectsForLeftHand]},
             // Right Hand (7 items)
-            { type: "righthand", id: "greeder-style", name: "グリーダースタイル", rarity: "SR", imageSrc: "sda.png", baseStats: { HP: 220, MP: 165, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 204, ガード: 0, 腕力: 180, 体力: 0, 速さ: 320, 知力: 0, 器用: 340, 精神: 0, 総合: 1849 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "another-style-dagger", name: "アナザースタイルダガー", rarity: "SR", imageSrc: "sdb.png", baseStats: { HP: 144, MP: 220, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 184, ガード: 0, 腕力: 160, 体力: 0, 速さ: 130, 知力: 0, 器用: 180, 精神: 340, 総合: 1798 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "murder-trap", name: "マーダートラップ", rarity: "LR", imageSrc: "sdc.png", baseStats: { HP: 330, MP: 247, 攻撃力: 550, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 239, ガード: 0, 腕力: 270, 体力: 0, 速さ: 410, 知力: 0, 器用: 440, 精神: 0, 総合: 2486 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "uraus-trenge", name: "ウラウストレンジ", rarity: "SR", imageSrc: "sdd.png", baseStats: { HP: 0, MP: 171, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 370, 体力: 0, 速さ: 340, 知力: 0, 器用: 260, 精神: 0, 総合: 1573 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "another-style-taro", name: "アナザースタイルタロー", rarity: "SR", imageSrc: "sde.png", baseStats: { HP: 0, MP: 220, 攻撃力: 520, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 450, 体力: 0, 速さ: 0, 知力: 240, 器用: 180, 精神: 0, 総合: 1622 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "glatnics-ha", name: "グラトニクス・破", rarity: "SR", imageSrc: "sdf.png", baseStats: { HP: 293, MP: 183, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 380, 体力: 170, 速さ: 130, 知力: 0, 器用: 0, 精神: 0, 総合: 1594 }, activeEffects: [...activeEffectsForRightHand]},
-            { type: "righthand", id: "another-style-knuckle", name: "アナザースタイルナックル", rarity: "SR", imageSrc: "sdg.png", baseStats: { HP: 174, MP: 240, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 190, 体力: 100, 速さ: 0, 知力: 0, 器用: 200, 精神: 220, 総合: 1582 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "greeder-style", name: "ｸﾞﾘｰﾀﾞｰｽﾀｲﾙ", rarity: "SR", imageSrc: "sda.png", baseStats: { HP: 220, MP: 165, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 204, ガード: 0, 腕力: 180, 体力: 0, 速さ: 320, 知力: 0, 器用: 340, 精神: 0, 総合: 1849 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "another-style-dagger", name: "ｱﾅｻﾞｰｽﾀｲﾙﾀﾞｶﾞｰ", rarity: "SR", imageSrc: "sdb.png", baseStats: { HP: 144, MP: 220, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 184, ガード: 0, 腕力: 160, 体力: 0, 速さ: 130, 知力: 0, 器用: 180, 精神: 340, 総合: 1798 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "murder-trap", name: "ﾏｰﾀﾞｰﾄﾗｯﾌﾟ", rarity: "LR", imageSrc: "sdc.png", baseStats: { HP: 330, MP: 247, 攻撃力: 550, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 239, ガード: 0, 腕力: 270, 体力: 0, 速さ: 410, 知力: 0, 器用: 440, 精神: 0, 総合: 2486 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "uraus-trenge", name: "ｳﾗｳｽﾄﾚﾝｼﾞ", rarity: "SR", imageSrc: "sdd.png", baseStats: { HP: 0, MP: 171, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 370, 体力: 0, 速さ: 340, 知力: 0, 器用: 260, 精神: 0, 総合: 1573 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "another-style-taro", name: "ｱﾅｻﾞｰｽﾀｲﾙﾀﾛｰ", rarity: "SR", imageSrc: "sde.png", baseStats: { HP: 0, MP: 220, 攻撃力: 520, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 450, 体力: 0, 速さ: 0, 知力: 240, 器用: 180, 精神: 0, 総合: 1622 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "glatnics-ha", name: "ｸﾞﾗﾄﾆｸｽ・破", rarity: "SR", imageSrc: "sdf.png", baseStats: { HP: 293, MP: 183, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 380, 体力: 170, 速さ: 130, 知力: 0, 器用: 0, 精神: 0, 総合: 1594 }, activeEffects: [...activeEffectsForRightHand]},
+            { type: "righthand", id: "another-style-knuckle", name: "ｱﾅｻﾞｰｽﾀｲﾙﾅｯｸﾙ", rarity: "SR", imageSrc: "sdg.png", baseStats: { HP: 174, MP: 240, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 190, 体力: 100, 速さ: 0, 知力: 0, 器用: 200, 精神: 220, 総合: 1582 }, activeEffects: [...activeEffectsForRightHand]},
             // Helms (5 items)
-            { type: "helm", id: "ludech-grim", name: "ルデッヒグリム", rarity: "SR", imageSrc: "sea.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
-            { type: "helm", id: "reidite-helm", name: "レイダイトヘルム", rarity: "SR", imageSrc: "seb.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 110, 体力: 110, 速さ: 70, 知力: 0, 器用: 110, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
-            { type: "helm", id: "qey-hat", name: "クェイートハット", rarity: "SR", imageSrc: "sec.png", baseStats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 976 }, activeEffects: [...activeEffectsForHelm]},
-            { type: "helm", id: "defy-cap", name: "ディファイキャップ", rarity: "LR", imageSrc: "sed.png", baseStats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm]},
-            { type: "helm", id: "starlight-cap", name: "スターライトキャップ", rarity: "LR", imageSrc: "see.png", baseStats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm]}
+            { type: "helm", id: "ludech-grim", name: "ﾙﾃﾞｯﾋｸﾞﾘﾑ", rarity: "SR", imageSrc: "sea.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
+            { type: "helm", id: "reidite-helm", name: "ﾚｲﾀﾞｲﾄﾍﾙﾑ", rarity: "SR", imageSrc: "seb.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 110, 体力: 110, 速さ: 70, 知力: 0, 器用: 110, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
+            { type: "helm", id: "qey-hat", name: "ｸｪｲｰﾄﾊｯﾄ", rarity: "SR", imageSrc: "sec.png", baseStats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 976 }, activeEffects: [...activeEffectsForHelm]},
+            { type: "helm", id: "defy-cap", name: "ﾃﾞｨﾌｧｲｷｬｯﾌﾟ", rarity: "LR", imageSrc: "sed.png", baseStats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm]},
+            { type: "helm", id: "starlight-cap", name: "ｽﾀｰﾗｲﾄｷｬｯﾌﾟ", rarity: "LR", imageSrc: "see.png", baseStats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm]}
         ];
         
-        // Reorder armor: Move "祝福のワーククロース" after "オリジンクロース"
         const armorItems = equipmentData.filter(eq => eq.type === "armor");
         const shukufukuWorkcloth = armorItems.find(eq => eq.id === "shukufuku-workcloth");
         const originClothIndex = armorItems.findIndex(eq => eq.id === "origin-cloth");
@@ -264,7 +280,7 @@
             const shukufukuWorkclothIndex = armorItems.indexOf(shukufukuWorkcloth);
             if (shukufukuWorkclothIndex < originClothIndex) { 
                 armorItems.splice(shukufukuWorkclothIndex, 1); 
-                armorItems.splice(originClothIndex, 0, shukufukuWorkcloth); 
+                armorItems.splice(originClothIndex + 1, 0, shukufukuWorkcloth); 
             }
         }
         const bootsItems = equipmentData.filter(eq => eq.type === "boots");
@@ -303,7 +319,7 @@
         equipmentData.forEach((eq, index) => {
             const th = document.createElement('th');
             th.scope = "col";
-            th.className = "text-center";
+            th.className = "text-center equipment-column"; 
             if ( (index === 5) ||  
                  (index === 10) ||  
                  (index === 12)|| 
@@ -347,7 +363,7 @@
 
             const effectsCell = document.createElement('td');
             effectsCell.id = `effects-${eq.id}`;
-            effectsCell.className = 'effects-cell';
+            effectsCell.className = 'effects-cell equipment-column'; 
              if ( (index === 5) ||  
                  (index === 10) ||  
                  (index === 12) || 
@@ -420,8 +436,11 @@
 
             equipmentData.forEach((eq, eqIndex) => {
                 const td = document.createElement('td');
+                td.className = `stat-value text-center equipment-column`; 
                 const value = eq.calculatedStats[label] !== undefined ? eq.calculatedStats[label] : '-';
-                td.className = `stat-value text-center ${value === 0 && label !== '総合' ? 'zero' : ''} ${label === '総合' ? 'total-stat' : ''}`;
+                if (value === 0 && label !== '総合') td.classList.add('zero');
+                if (label === '総合') td.classList.add('total-stat');
+                
                 if ( (eqIndex === 5) ||  
                      (eqIndex === 10) ||  
                      (eqIndex === 12) || 
