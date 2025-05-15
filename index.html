@@ -70,8 +70,8 @@
         }
         
         .equipment-column { 
-            width: 176px; /* Changed from 220px to 176px (80%) */
-            min-width: 176px; /* Changed from 220px to 176px (80%) */
+            width: 176px; 
+            min-width: 176px; 
             white-space: nowrap; 
         }
 
@@ -204,8 +204,7 @@
                     <th colspan="5" class="category-header category-separator">アーマー</th>
                     <th colspan="2" class="category-header category-separator">左手</th>
                     <th colspan="7" class="category-header category-separator">右手</th>
-                    <th colspan="5" class="category-header">ヘルム</th>
-                </tr>
+                    <th colspan="6" class="category-header">ヘルム</th> </tr>
                 <tr id="equipmentHeaderRow">
                     <th scope="col" class="sticky-col header">ステータス</th>
                     </tr>
@@ -240,7 +239,7 @@
         ];
 
         let equipmentData = [ 
-            // Boots (6 items now)
+            // Boots (6 items)
             { type: "boots", id: "reidite", name: "ﾚｲﾀﾞｲﾄﾌﾞｰﾂ", rarity: "SR", imageSrc: "saa.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 120, 体力: 120, 速さ: 100, 知力: 0, 器用: 120, 精神: 0, 総合: 710 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
             { type: "boots", id: "ludech", name: "ﾙﾃﾞｯﾋﾌﾞｰﾂ", rarity: "SR", imageSrc: "sab.png", baseStats: { HP: 50, MP: 50, 攻撃力: 0, 防御力: 190, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 690 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
             { type: "boots", id: "shukufuku", name: "祝福ｶﾞｰﾄﾞ", rarity: "SR", imageSrc: "sac.png", baseStats: { HP: 211, MP: 100, 攻撃力: 0, 防御力: 210, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 210, 体力: 220, 速さ: 0, 知力: 0, 器用: 200, 精神: 0, 総合: 1151 }, activeEffects: [...commonActiveEffectsForBootsAndArmor]},
@@ -264,29 +263,47 @@
             { type: "righthand", id: "another-style-taro", name: "ｱﾅｻﾞｰｽﾀｲﾙﾀﾛｰ", rarity: "SR", imageSrc: "sde.png", baseStats: { HP: 0, MP: 220, 攻撃力: 520, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 12, ガード: 0, 腕力: 450, 体力: 0, 速さ: 0, 知力: 240, 器用: 180, 精神: 0, 総合: 1622 }, activeEffects: [...activeEffectsForRightHand]},
             { type: "righthand", id: "glatnics-ha", name: "ｸﾞﾗﾄﾆｸｽ・破", rarity: "SR", imageSrc: "sdf.png", baseStats: { HP: 293, MP: 183, 攻撃力: 420, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 380, 体力: 170, 速さ: 130, 知力: 0, 器用: 0, 精神: 0, 総合: 1594 }, activeEffects: [...activeEffectsForRightHand]},
             { type: "righthand", id: "another-style-knuckle", name: "ｱﾅｻﾞｰｽﾀｲﾙﾅｯｸﾙ", rarity: "SR", imageSrc: "sdg.png", baseStats: { HP: 174, MP: 240, 攻撃力: 440, 防御力: 0, 魔法攻撃力: 0, 攻撃速度: 18, ガード: 0, 腕力: 190, 体力: 100, 速さ: 0, 知力: 0, 器用: 200, 精神: 220, 総合: 1582 }, activeEffects: [...activeEffectsForRightHand]},
-            // Helms (5 items)
+            // Helms (6 items now)
             { type: "helm", id: "ludech-grim", name: "ﾙﾃﾞｯﾋｸﾞﾘﾑ", rarity: "SR", imageSrc: "sea.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
             { type: "helm", id: "reidite-helm", name: "ﾚｲﾀﾞｲﾄﾍﾙﾑ", rarity: "SR", imageSrc: "seb.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 110, 体力: 110, 速さ: 70, 知力: 0, 器用: 110, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm]},
             { type: "helm", id: "qey-hat", name: "ｸｪｲｰﾄﾊｯﾄ", rarity: "SR", imageSrc: "sec.png", baseStats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 976 }, activeEffects: [...activeEffectsForHelm]},
+            { type: "helm", id: "second-hat", name: "2ndﾊｯﾄ", rarity: "SR", imageSrc: "sef.png", baseStats: { HP: 61, MP: 201, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 180, 体力: 120, 速さ: 0, 知力: 0, 器用: 120, 精神: 150, 総合: 982 }, activeEffects: [...activeEffectsForHelm]},
             { type: "helm", id: "defy-cap", name: "ﾃﾞｨﾌｧｲｷｬｯﾌﾟ", rarity: "LR", imageSrc: "sed.png", baseStats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm]},
             { type: "helm", id: "starlight-cap", name: "ｽﾀｰﾗｲﾄｷｬｯﾌﾟ", rarity: "LR", imageSrc: "see.png", baseStats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm]}
         ];
         
-        const armorItems = equipmentData.filter(eq => eq.type === "armor");
-        const shukufukuWorkcloth = armorItems.find(eq => eq.id === "shukufuku-workcloth");
-        const originClothIndex = armorItems.findIndex(eq => eq.id === "origin-cloth");
+        // Reorder armor: Move "祝福のワーククロース" after "オリジンクロース"
+        // Reorder helm: Insert "2ndハット" after "ｸｪｲｰﾄﾊｯﾄ"
         
-        if (shukufukuWorkcloth && originClothIndex !== -1) {
-            const shukufukuWorkclothIndex = armorItems.indexOf(shukufukuWorkcloth);
-            if (shukufukuWorkclothIndex < originClothIndex) { 
-                armorItems.splice(shukufukuWorkclothIndex, 1); 
-                armorItems.splice(originClothIndex + 1, 0, shukufukuWorkcloth); 
-            }
-        }
+        // Separate by type first
         const bootsItems = equipmentData.filter(eq => eq.type === "boots");
+        let armorItems = equipmentData.filter(eq => eq.type === "armor");
         const leftHandItems = equipmentData.filter(eq => eq.type === "lefthand");
         const rightHandItems = equipmentData.filter(eq => eq.type === "righthand");
-        const helmItems = equipmentData.filter(eq => eq.type === "helm");
+        let helmItems = equipmentData.filter(eq => eq.type === "helm");
+
+        // Reorder armor
+        const shukufukuWorkclothArmor = armorItems.find(eq => eq.id === "shukufuku-workcloth");
+        const originClothArmorIndex = armorItems.findIndex(eq => eq.id === "origin-cloth");
+        if (shukufukuWorkclothArmor && originClothArmorIndex !== -1) {
+            const currentIndex = armorItems.indexOf(shukufukuWorkclothArmor);
+            if (currentIndex !== -1 && currentIndex !== originClothArmorIndex + 1) { // Only move if not already in place
+                armorItems.splice(currentIndex, 1);
+                armorItems.splice(originClothArmorIndex + 1, 0, shukufukuWorkclothArmor);
+            }
+        }
+        
+        // Insert new helm item
+        const secondHat = helmItems.find(eq => eq.id === "second-hat"); // Get the new item
+        const qeyHatIndex = helmItems.findIndex(eq => eq.id === "qey-hat");
+        if (secondHat && qeyHatIndex !== -1) {
+            const currentIndex = helmItems.indexOf(secondHat);
+            if (currentIndex !== -1 && currentIndex !== qeyHatIndex + 1) { // Only move if not already in place
+                 helmItems.splice(currentIndex, 1); // Remove from current position (if it was added at the end)
+                 helmItems.splice(qeyHatIndex + 1, 0, secondHat); // Insert after qey-hat
+            }
+        }
+
 
         equipmentData = [
             ...bootsItems,
@@ -320,10 +337,11 @@
             const th = document.createElement('th');
             th.scope = "col";
             th.className = "text-center equipment-column"; 
-            if ( (index === 5) ||  
-                 (index === 10) ||  
-                 (index === 12)|| 
-                 (index === 19) ) { 
+            // Boots: 6, Armor: 5, Left Hand: 2, Right Hand: 7, Helm: 6
+            if ( (index === 5) ||  // After last Boot
+                 (index === 10) ||  // After last Armor
+                 (index === 12)||  // After last Left Hand
+                 (index === 19) ) { // After last Right Hand
                 th.classList.add('category-separator');
             }
 
