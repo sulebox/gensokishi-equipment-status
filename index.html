@@ -307,7 +307,7 @@
             // Helms (6 items now)
             { type: "helm", id: "ludech-grim", name: "ﾙﾃﾞｯﾋｸﾞﾘﾑ", rarity: "SR", imageSrc: "sea.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 130, 体力: 0, 速さ: 130, 知力: 0, 器用: 140, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule1Jobs]},
             { type: "helm", id: "reidite-helm", name: "ﾚｲﾀﾞｲﾄﾍﾙﾑ", rarity: "SR", imageSrc: "seb.png", baseStats: { HP: 50, MP: 0, 攻撃力: 0, 防御力: 140, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 110, 体力: 110, 速さ: 70, 知力: 0, 器用: 110, 精神: 0, 総合: 640 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule1Jobs]},
-            { type: "helm", id: "qey-hat", name: "ｸｪｲｰﾄﾊｯﾄ", rarity: "SR", imageSrc: "sec.png", baseStats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 0, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 976 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule2Jobs]},
+            { type: "helm", id: "qey-hat", name: "ｸｪｲｰﾄﾊｯﾄ", rarity: "SR", imageSrc: "sec.png", baseStats: { HP: 103, MP: 173, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 250, 体力: 150, 速さ: 0, 知力: 150, 器用: 0, 精神: 0, 総合: 1226 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule2Jobs]}, // 腕力 0->250, 総合 976->1226
             { type: "helm", id: "second-hat", name: "2ndﾊｯﾄ", rarity: "SR", imageSrc: "sef.png", baseStats: { HP: 61, MP: 201, 攻撃力: 0, 防御力: 150, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 180, 体力: 120, 速さ: 0, 知力: 0, 器用: 120, 精神: 150, 総合: 982 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule2Jobs]},
             { type: "helm", id: "defy-cap", name: "ﾃﾞｨﾌｧｲｷｬｯﾌﾟ", rarity: "LR", imageSrc: "sed.png", baseStats: { HP: 211, MP: 211, 攻撃力: 0, 防御力: 270, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 320, 体力: 310, 速さ: 0, 知力: 0, 器用: 320, 精神: 0, 総合: 1642 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule3Jobs]},
             { type: "helm", id: "starlight-cap", name: "ｽﾀｰﾗｲﾄｷｬｯﾌﾟ", rarity: "LR", imageSrc: "see.png", baseStats: { HP: 201, MP: 301, 攻撃力: 0, 防御力: 250, 魔法攻撃力: 0, 攻撃速度: 0, ガード: 0, 腕力: 330, 体力: 240, 速さ: 190, 知力: 0, 器用: 220, 精神: 0, 総合: 1732 }, activeEffects: [...activeEffectsForHelm], equipableJobs: [...rule3Jobs]}
@@ -348,7 +348,8 @@
                     initialTotal += eq.baseStats[statName];
                 }
             }
-            if (eq.baseStats["総合"] === undefined || eq.baseStats["総合"] === 0) { 
+            // If baseStats.総合 is not explicitly set OR is 0 (and likely needs calculation), calculate it.
+            if (eq.baseStats["総合"] === undefined || eq.baseStats["総合"] === 0 ) { 
                  eq.baseStats["総合"] = initialTotal;
             }
             eq.calculatedStats = { ...eq.baseStats }; 
@@ -423,6 +424,9 @@
                 return baseStat; 
             }
             if (baseStat === 0 && statName !== "総合") return 0; 
+            // For "総合", we will calculate it based on other stats, so we don't apply level growth here directly.
+            // Instead, the base value of "総合" (which should be pre-calculated for Lv0) is used.
+            // The actual sum will be done in recalculateAndDisplayStats.
             if (statName === "総合") return baseStat; 
 
             const growthPerLevel = baseStat * 0.09;
@@ -442,7 +446,7 @@
                     currentTotal += calculatedValue;
                 }
             });
-            eq.calculatedStats["総合"] = currentTotal;
+            eq.calculatedStats["総合"] = currentTotal; // Update "総合" with the sum of other calculated stats
 
             updateTableDisplayForEquipment(equipmentIndex);
         }
